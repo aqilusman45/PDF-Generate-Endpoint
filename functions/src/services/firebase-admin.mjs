@@ -25,14 +25,21 @@ class FirebaseAdmin {
     this.remoteConfig = getRemoteConfig(this.app);
   }
 
-  getUser = async (uid) => {
-    return await this.auth.getUser(uid);
-  };
-
   getUserDocument = async (uid) => {
     return await this.db.collection("users").doc(uid).get();
   };
+  
+  getUserData = async (uid) => {
+    return await this.db
+    .collection("users")
+    .doc(uid)
+    .collection("donations")
+    .get();
+  };
 
+  getUserCharity = async (id) => {
+    return await this.db.collection("charities").doc(id).get();
+  };
 }
 
 export default new FirebaseAdmin();
